@@ -1,0 +1,88 @@
+<template>
+    <div class="title_wrap">
+        <div class="left">
+            <slot name="loation">
+                {{leftInfo}}
+                <i v-show="leftInfo" class="iconfont icon-jiantouyou"></i>
+            </slot>
+            <slot name="back">
+                <i v-show="!leftInfo" class="iconfont icon-fanhui"></i>
+            </slot>
+        </div>
+        <div class="center">
+            {{centerInfo}}
+        </div>
+        <div class="right"  @click="check">
+            <i class="iconfont icon-wode"></i>
+            <span>我的</span>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    name:'myHeader',
+    props:['leftInfo','centerInfo','rightInfo'],
+    methods:{
+        check:()=>{
+            console.log(2222);
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+// scoped 表示样式只用于该组件，不会影响到其他组件或者页面
+/*
+    1.直接写px，编译后会直接转化成rem —- 除开下面两种情况，其他长度用这个
+    2.在px后面添加/no/，不会转化px，会原样输出。 — 一般border需用这个
+    3.在px后面添加/\*px*\/,会根据dpr的不同，生成三套代码。—- 一般字体需用这个
+*/ 
+.title_wrap{
+    height: 44px;/*px*/
+    width: 100%;
+    position: fixed;
+    top:0px;
+    left: 0px;
+    z-index: 100;
+    background: #06c1ae;
+    .left{
+        width: 60px;/*px*/
+        height: inherit;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: .4rem;
+        .iconfont{
+            font-size: .6rem;
+        }
+    }
+    .center{
+        color: #fff;
+        font-size: 18px;/*px*/
+        line-height: 44px;/*px*/
+        text-align: center;
+    }
+    .right{
+        width: 60px;/*px*/
+        height: inherit;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color:#fff;
+        .iconfont{
+            font-size: .6rem;
+            margin-bottom: 1px;/*px*/
+        }
+    }
+}
+</style>
+
+
