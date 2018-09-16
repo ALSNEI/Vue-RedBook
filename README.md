@@ -1,6 +1,6 @@
-# vuemeituan
+# vueRedBook
 
-> high_imitation_beauty_regiment
+> high_imitation_RedBook
 
 ## Build Setup
 

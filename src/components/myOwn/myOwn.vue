@@ -1,7 +1,6 @@
 <template>
     <div class="myOwn_wrap">
-        <my-header centerInfo="sssS">
-            <slot name="back"></slot>
+        <my-header centerInfo="sssS" leftInfo="back">
         </my-header>
         <h1>sssss</h1>
         <router-link tag="a" to="/">back to home</router-link>

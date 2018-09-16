@@ -1,46 +1,85 @@
 <template>
-    <div class="title_wrap">
-        <div class="left" v-show="leftInfo" @click="leftclick">
-            <!-- 定位显示模块 -->
-            <div v-show="leftInfo=='location'">
-                {{position}}
-                <i class="iconfont icon-jiantouyou"></i>
-            </div>
-            <!-- 返回模块 -->
-            <div v-show="leftInfo=='back'">
-                <i class="iconfont icon-fanhui"></i>
-            </div>
+    <header class="title_wrap">
+        <!-- 更多模块 -->
+        <div class="left">
+            <span class="left_side" @click="handleLeftSide">
+                <img src="../../assets/three_line.png" >
+            </span>
         </div>
+        
         <div class="center">
-            {{centerInfo}}
+            <div class="center_title" v-show="centerInfo">
+                {{centerInfo}}
+            </div>
+            <slot v-if="!centerInfo">
+                <router-link tag="div" to="/search" class="home_search">
+                    <i class="iconfont icon-sousuo"></i>
+                    <span>{{search_placeholder}}</span>
+                </router-link>
+            </slot>
         </div>
         <div class="right" v-show="rightInfo" @click="rightclick">
             <div v-show="rightInfo=='my'">
                 <i class="iconfont icon-wode"></i>
                 <span>我的</span>
             </div>
-            <div v-show="rightInfo=='home'">
+            <router-link tag="div" to="/" v-show="rightInfo=='home'">
                 <i class="iconfont icon-shouye"></i>
-                <span>我的</span>
+                <span>首页</span>
+            </router-link>
+            <div v-show="rightInfo=='nav'">
+                <i class="iconfont icon-shoucang"></i>
+                <span>导航</span>
+                <ul class="nav_list">
+                    <li>
+                        <i class="iconfont icon-shouye"></i>
+                        <span>首页</span>
+                    </li>
+                    <li>
+                        <i class="iconfont icon-wode"></i>
+                        <span>我的</span>
+                    </li>
+                    <li>
+                        <i class="iconfont icon-sousuo"></i>
+                        <span>搜索</span>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
+    </header>
 </template>
 <script>
 export default {
     name:'myHeader',
+    props:['centerInfo','rightInfo'],
+    /*
+        简单项目中：
+        data:{
+            msg:''
+        }
+        大型组件化项目中：
+        data(){
+            return:{
+                msg:''
+            }
+        }
+
+        差别：
+            1.不使用return包裹的数据在项目中全局可见，会造成变量污染；
+            2.使用return包裹的数据变量只在当前数组中生效，不会影响其他组件
+    */ 
     data(){
         return{
-            position:'广州'
+            search_placeholder:'输入商家/品类/商圈',
         }
     },
-    props:['leftInfo','centerInfo','rightInfo'],
     methods:{
-        leftclick:()=>{
-            console.log(1111);
+        rightclick(){
+            console.log(this.rightInfo);
         },
-        rightclick:()=>{
-            console.log(2222);
+        handleLeftSide(){
+            this.$store.commit("SET_NAVSIDE_FLAG",!this.$store.state.navSide_flag);
+            this.$store.commit("SET_MASK_FLAG",!this.$store.state.mask_flag);
         }
     }
 }
@@ -54,50 +93,63 @@ export default {
     3.在px后面添加/\*px*\/,会根据dpr的不同，生成三套代码。—- 一般字体需用这个
 */ 
 .title_wrap{
-    height: 44px;/*px*/
+    height: 1.346667rem;
     width: 100%;
-    position: fixed;
-    top:0px;
-    left: 0px;
-    z-index: 100;
-    background: #06c1ae;
+    position: relative;
+    background: white;
+    display: flex;
+    align-items: center;
     .left{
-        min-width: 60px;/*px*/
+        width: 1.346667rem;
         height: inherit;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        div{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: .4rem;
-            .iconfont{
-                font-size: .6rem;
-            }
+        z-index: 20;
+        display: table;
+        text-align: center;
+        .left_side{
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .left_side img{
+            width: 40%;
         }
     }
     .center{
         color: #fff;
         font-size: 18px;/*px*/
-        line-height: 44px;/*px*/
-        text-align: center;
+        flex:1;
+        .center_title{
+            text-align: center;
+        }
+        .home_search{
+            width: 100%;
+            height: .853333rem;
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,.15);
+            border-radius: 6px;/*px*/
+            i{
+                font-size: 16px;/*px*/
+                padding:0px 8px;/*px*/
+            }
+            span{
+                font-size: 13px;/*px*/
+                color: #68dbce;
+            }
+        }
     }
     .right{
-        width: 60px;/*px*/
         height: inherit;
-        position: absolute;
-        right: 0px;
-        top: 0px;
+        z-index: 20;
+        padding: 0px 10px;/*px*/
         div{
+            height: inherit;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             color:#fff;
             .iconfont{
-                font-size: .6rem;
+                font-size: 20px;/*px*/
                 margin-bottom: 1px;/*px*/
             }
         }

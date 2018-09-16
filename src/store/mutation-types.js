@@ -1,0 +1,3 @@
+export const SET_MASK_FLAG = "SET_MASK_FLAG";
+
+export const SET_NAVSIDE_FLAG = "SET_NAVSIDE_FLAG";
