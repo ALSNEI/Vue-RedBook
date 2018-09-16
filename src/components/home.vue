@@ -1,7 +1,6 @@
 <template>
   <div class="home_wrap">
-    <my-header centerInfo="sssS" leftInfo="广州">
-      <slot name="location"></slot>
+    <my-header centerInfo="sssS" leftInfo="location" rightInfo="my">
     </my-header>
     <div class="content">
       <router-link tag="a" to="/myOwn">go myOwn</router-link>

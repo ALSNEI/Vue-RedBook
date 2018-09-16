@@ -1,29 +1,45 @@
 <template>
     <div class="title_wrap">
-        <div class="left">
-            <slot name="loation">
-                {{leftInfo}}
-                <i v-show="leftInfo" class="iconfont icon-jiantouyou"></i>
-            </slot>
-            <slot name="back">
-                <i v-show="!leftInfo" class="iconfont icon-fanhui"></i>
-            </slot>
+        <div class="left" v-show="leftInfo" @click="leftclick">
+            <!-- 定位显示模块 -->
+            <div v-show="leftInfo=='location'">
+                {{position}}
+                <i class="iconfont icon-jiantouyou"></i>
+            </div>
+            <!-- 返回模块 -->
+            <div v-show="leftInfo=='back'">
+                <i class="iconfont icon-fanhui"></i>
+            </div>
         </div>
         <div class="center">
             {{centerInfo}}
         </div>
-        <div class="right"  @click="check">
-            <i class="iconfont icon-wode"></i>
-            <span>我的</span>
+        <div class="right" v-show="rightInfo" @click="rightclick">
+            <div v-show="rightInfo=='my'">
+                <i class="iconfont icon-wode"></i>
+                <span>我的</span>
+            </div>
+            <div v-show="rightInfo=='home'">
+                <i class="iconfont icon-shouye"></i>
+                <span>我的</span>
+            </div>
         </div>
     </div>
 </template>
 <script>
 export default {
     name:'myHeader',
+    data(){
+        return{
+            position:'广州'
+        }
+    },
     props:['leftInfo','centerInfo','rightInfo'],
     methods:{
-        check:()=>{
+        leftclick:()=>{
+            console.log(1111);
+        },
+        rightclick:()=>{
             console.log(2222);
         }
     }
@@ -46,18 +62,20 @@ export default {
     z-index: 100;
     background: #06c1ae;
     .left{
-        width: 60px;/*px*/
+        min-width: 60px;/*px*/
         height: inherit;
         position: absolute;
         left: 0px;
         top: 0px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-size: .4rem;
-        .iconfont{
-            font-size: .6rem;
+        div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: .4rem;
+            .iconfont{
+                font-size: .6rem;
+            }
         }
     }
     .center{
@@ -72,14 +90,16 @@ export default {
         position: absolute;
         right: 0px;
         top: 0px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        color:#fff;
-        .iconfont{
-            font-size: .6rem;
-            margin-bottom: 1px;/*px*/
+        div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color:#fff;
+            .iconfont{
+                font-size: .6rem;
+                margin-bottom: 1px;/*px*/
+            }
         }
     }
 }
