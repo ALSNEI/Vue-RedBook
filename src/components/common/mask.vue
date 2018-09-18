@@ -18,7 +18,7 @@
 </style>
 <template>
     <transition name="fade">
-        <div class="mask" v-show="$store.state.mask_flag" @click="dosomething"></div>
+        <div class="mask" v-show="$store.state.mask_flag" @click="dosomething" @touchmove.prevent></div>
     </transition>
 </template>
 <script>

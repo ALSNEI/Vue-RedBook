@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '@/components/home'
+import index from '@/components/index'
 
 Vue.use(Router)
 
@@ -9,19 +9,33 @@ const router = new Router({
   mode: 'history',
   routes: [{
       path: '/',
-      name: 'home',
-      component: home,
+      name: 'index',
+      component: index,
       meta:{
         keepAlive:true
-      }
-    },
-    {
-      path: '/myOwn',
-      name: 'myOwn',
-      component: resolve => require.ensure([], () => resolve(require("@/components/myOwn/myOwn.vue"))),
-      meta: {
-        auth: true, //添加该字段，表示进入该页面需要这个条件参数
-      }
+      },
+      children:[
+        {
+          path: '/myOwn',
+          name: 'myOwn',
+          component: resolve => require.ensure([], () => resolve(require("@/components/myOwn/myOwn.vue"))),
+        },
+        {
+          path: '/shop',
+          name: 'shop',
+          component: resolve => require.ensure([], () => resolve(require("@/components/shop/shop.vue"))),
+        },
+        {
+          path: '/public',
+          name: 'public',
+          component: resolve => require.ensure([], () => resolve(require("@/components/public/public.vue"))),
+        },
+        {
+          path: '/notice',
+          name: 'notice',
+          component: resolve => require.ensure([], () => resolve(require("@/components/notice/notice.vue"))),
+        },
+      ]
     },
     {
       path: '/login',

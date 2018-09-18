@@ -1,6 +1,14 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .home_wrap{
+  .search_wrapper{
+    position: fixed;
+    top: 1.346667rem;
+    left: 0%;
+    width: 100%;
+    z-index: 10;
+
+  }
   .middle_wapper{
     padding: 6px;/*px*/
     margin: 0px;
@@ -50,7 +58,7 @@
     opacity: 0;
   }
   .shoplist_warp{
-    padding-left:.266667rem;
+    // padding-left:.266667rem;
     background: #fff;
     .shop_p{
       font-size: 17px;/*px*/
@@ -77,59 +85,60 @@
 
 <style lang="scss">
 // 首页swiper 专用样式
-.swiper-container{
-  height: 4.8rem;
-  background:#fff;
-  .swiper-slide{
-    ul{
-      width: 100%;
-      margin: 0px;
-      padding: 0px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      li{
-        width: 20%;
-        padding: 10px 0px;/*px*/
-        text-align: center;
-        list-style-type: none;
-        color: #666;
-        font-size: 12px;/*px*/
-        span{
-          display: block;
-          width: 1.066667rem;
-          height: 1.066667rem;
-          font-size: 25px;/*px*/
-          color:#fff;
-          border-radius: 50%;
-          margin: 0 auto;
-          line-height: 1.066667rem;
-          margin-bottom:7px;/*px*/
-        }
-      }
-    }
-  }
-  .swiper-pagination{
-    bottom:.106667rem;
-    .swiper-pagination-bullet{
-      margin: 0px 10px;/*px*/
-      opacity: 0.1;
-    }
-    .swiper-pagination-bullet-active{
-      background:#06c1ae;
-      opacity:1;
-    }
-  }
-}
+// .swiper-container{
+//   height: 4.8rem;
+//   background:#fff;
+//   .swiper-slide{
+//     ul{
+//       width: 100%;
+//       margin: 0px;
+//       padding: 0px;
+//       display: flex;
+//       justify-content: center;
+//       flex-wrap: wrap;
+//       li{
+//         width: 20%;
+//         padding: 10px 0px;/*px*/
+//         text-align: center;
+//         list-style-type: none;
+//         color: #666;
+//         font-size: 12px;/*px*/
+//         span{
+//           display: block;
+//           width: 1.066667rem;
+//           height: 1.066667rem;
+//           font-size: 25px;/*px*/
+//           color:#fff;
+//           border-radius: 50%;
+//           margin: 0 auto;
+//           line-height: 1.066667rem;
+//           margin-bottom:7px;/*px*/
+//         }
+//       }
+//     }
+//   }
+//   .swiper-pagination{
+//     bottom:.106667rem;
+//     .swiper-pagination-bullet{
+//       margin: 0px 10px;/*px*/
+//       opacity: 0.1;
+//     }
+//     .swiper-pagination-bullet-active{
+//       background:#06c1ae;
+//       opacity:1;
+//     }
+//   }
+// }
 </style>
 
 <template>
   <div class="home_wrap">
     <my-header  leftInfo="location" rightInfo="my">
     </my-header>
+    <search class="search_wrapper"></search>
     <nav-side></nav-side>
     <myMask></myMask>
-    <bannerDown></bannerDown>
+    <router-view></router-view>
     <swiper :options="swiperOption" ref="mySwiper">
       <!-- slides -->
       <swiper-slide>
@@ -184,10 +193,10 @@
 
 <script>
 import {swiper,swiperSlide} from 'vue-awesome-swiper'
-import bannerDown from '@/components/common/banner-down'
 import seperateLine from '@/components/common/seperate-line'
 import listShop from '@/components/common/listShop'
 import designFooter from '@/components/common/myfooter'
+import search from '@/components/common/search'
 export default {
   name: 'home',
   data () {
@@ -236,11 +245,11 @@ export default {
   },
   components:{
     seperateLine,
-    bannerDown,
     listShop,
     designFooter,
     swiper,
     swiperSlide,
+    search
   },
   async created(){
     const res = await this.$ajax.Get(this.$ApiSetting.bannerUrl);

@@ -20,17 +20,21 @@ const shoplists = (() => {
     let length = Random.integer(10,20);
     let Data = [];
     for (let index = 0; index < length; index++) {
-        let vipPrice = Random.float(10, 200, 0, 2).toFixed(1);
-        const obj = {
-        'id|+1': 0,
-        'imgurl': Random.dataImage('180x180', 'Hello bitch!'),
-        'p1': Random.cword(4,8),
-        'location': Random.cword(4, 6),
-        'p2': Random.ctitle(7, 30),
-        'vipPrice': Number(vipPrice),
-        'price': Number(vipPrice) + Number(Random.integer(60, 100)),
-        'num':Random.integer(0,1000),
-        };
+        const obj = Mock.mock({
+            'id': index,
+            'avatar': Random.dataImage('180x180', 'Hello bitch!'),
+            'name': Random.ctitle(1, 7),
+              'imgList|0-8': [{
+                'imgurl': Random.dataImage('375x667', 'Hello bitch!')
+              }],
+              'like': Random.integer(0, 1000),
+              'comments': Random.integer(0, 1000),
+              'transmit': Random.integer(0, 1000),
+              'star': Random.integer(0, 1000),
+              'content': Random.cparagraph(1, 3),
+              'topCommit': Random.csentence(5, 15),
+              'time': Random.datetime('MM-dd')
+            });
         Data.push(obj);
     }
     return Data;

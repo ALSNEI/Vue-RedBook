@@ -14,7 +14,7 @@ module.exports = {
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    // host: '192.168.0.112',//PC端的IP地址用于手机端测试
+    // host: '192.168.3.19',//PC端的IP地址用于手机端测试
 
 
 

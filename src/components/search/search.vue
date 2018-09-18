@@ -142,7 +142,6 @@
 <template>
     <div class="search">
         <my-header  leftInfo="back" centerInfo="搜索" rightInfo="home"></my-header>
-        <bannerDown></bannerDown>
         <div class="search_mian">
             <div class="search_wrap">
                 <div class="input_wrap">
@@ -179,7 +178,6 @@
     </div>
 </template>
 <script>
-import bannerDown from '@/components/common/banner-down'
 import designFooter from '@/components/common/myfooter'
 
 export default {
@@ -234,7 +232,6 @@ export default {
         }
     },
     components: {
-        bannerDown,
         designFooter
     }
 }
