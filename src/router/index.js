@@ -10,11 +10,18 @@ const router = new Router({
   routes: [{
       path: '/',
       name: 'index',
+      //重定向
+      redirect: '/home',
       component: index,
       meta:{
         keepAlive:true
       },
       children:[
+        {
+          path: '/home',
+          name: 'home',
+          component: resolve => require.ensure([], () => resolve(require("@/components/home/home.vue"))),
+        },
         {
           path: '/myOwn',
           name: 'myOwn',

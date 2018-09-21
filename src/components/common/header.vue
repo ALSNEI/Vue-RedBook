@@ -21,7 +21,7 @@
                 <li v-for="(item,index) in homeTitleList" :key="index" :class="{active:index==homeTopActive}" @click="changeHomeTop(index)">{{item.p}}</li>
               </ul>
         </div>
-        <div class="right" v-show="rightInfo" @click="rightclick">
+        <div class="right" @click="rightclick">
             
         </div>
     </header>
