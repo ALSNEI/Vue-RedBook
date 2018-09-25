@@ -1,6 +1,6 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import Axios from 'axios'
-import config from './config'
+// import config from './config'
 import loading from '@/components/common/loading'
 
 let load = loading.service();
@@ -35,7 +35,7 @@ class Ajax {
     }
     let getData = new Promise((resolve, reject) => {
       Axios.get(url).then((response) => {
-        console.log(response);
+        // console.log(response);
         if(this.handleResponse(response)){
             resolve(response.data);
         }else{

@@ -8,28 +8,24 @@
         </div>
         
         <div class="center">
-            <!-- <div class="center_title" v-show="centerInfo">
-                {{centerInfo}}
+            <ul class="homeWrapper" v-show="$store.state.bottomTab_flag==0">
+              <li v-for="(item,index) in homeTitleList" :key="index" :class="{active:index==$store.state.homeTitle_flag}" @click="changeHomeTop(index)">{{item.p}}</li>
+            </ul>
+            <div class="searchWrap" v-show="$store.state.bottomTab_flag==1">
+              <search></search>
             </div>
-            <slot v-if="!centerInfo">
-                <router-link tag="div" to="/search" class="home_search">
-                    <i class="iconfont icon-sousuo"></i>
-                    <span>{{search_placeholder}}</span>
-                </router-link>
-            </slot> -->
-              <ul class="homeWrapper" >
-                <li v-for="(item,index) in homeTitleList" :key="index" :class="{active:index==homeTopActive}" @click="changeHomeTop(index)">{{item.p}}</li>
-              </ul>
         </div>
-        <div class="right" @click="rightclick">
+        <div class="right" @click="rightclick" v-show="$store.state.bottomTab_flag==0||4">
             
         </div>
     </header>
 </template>
 <script>
+import search from "@/components/common/search";
+
 export default {
   name: "myHeader",
-  props: ["centerInfo", "rightInfo"],
+  props: [ "rightInfo"],
   /*
         简单项目中：
         data:{
@@ -46,7 +42,9 @@ export default {
             1.不使用return包裹的数据在项目中全局可见，会造成变量污染；
             2.使用return包裹的数据变量只在当前数组中生效，不会影响其他组件
     */
-
+   components:{
+     search,
+   },
   data() {
     return {
       search_placeholder: "输入商家/品类/商圈",
@@ -65,6 +63,8 @@ export default {
       this.$store.commit("SET_MASK_FLAG", !this.$store.state.mask_flag);
     },
     changeHomeTop(index){
+      console.log(this.homeTopActive);
+      this.$store.commit("SET_HOMETITLE_FLAG", !this.$store.state.homeTitle_flag);
       this.homeTopActive = index;
     }
   },
@@ -72,6 +72,10 @@ export default {
   computed: {
     getNavDisplay() {
       return this.$store.state.navSide_flag;
+    },
+    //处理底部tab切换，顶部菜单栏的组件变换
+    getBottomtab(){
+      return this.$store.state.bottomTab_flag;
     }
   },
   watch: {
@@ -94,6 +98,7 @@ export default {
       document.body.scrollTop = this.pageScrollYoffset;
       window.scroll(0, this.pageScrollYoffset);
     }
+    
   }
 }
 </script>
@@ -167,6 +172,9 @@ export default {
           background: red;
         }
       }
+    }
+    .searchWrap{
+      height: 100%;
     }
   }
   .right {

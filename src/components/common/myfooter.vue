@@ -28,7 +28,7 @@
 </style>
 
 <template>
-    <footer class="footer_wrapper" :class="{'addborder':nothome}">
+    <footer class="footer_wrapper addborder">
         <div v-for="(item,index) in footerList" :key="index" :class="{active:actived==index}" @click="jump(item,index)">{{item.p}}</div>
     </footer>
 </template>
@@ -38,7 +38,6 @@ export default {
   data() {
     return {
       actived: 0,
-      nothome: false,
       footerList: [
         { p: "首页",path:'index' },
         { p: "商城",path:'shop' },
@@ -50,14 +49,14 @@ export default {
   },
   methods: {
     jump(Ob,index) {
-        console.log(Ob,index)
-      this.actived = index;
-      if (index == 1) {
-        this.nothome = false;
-      } else {
-        this.nothome = true;
+      if(this.actived == index){
+        return;
+      }else{
+        this.actived = index;
+        this.$store.commit("SET_BOTTOMTAB_FLAG",index);
+        console.log(this.$store.state.bottomTab_flag)
+        this.$router.push({name: Ob.path});
       }
-      this.$router.push({name: Ob.path});
     }
   }
 };

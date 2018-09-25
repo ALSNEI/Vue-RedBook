@@ -1,7 +1,3 @@
-<style lang="scss" scoped>
-
-</style>
-
 <template>
     <div class="focus_wrap">
         <focusitem v-for="(item,index) in focusdata" :key="index" :item="item"></focusitem>

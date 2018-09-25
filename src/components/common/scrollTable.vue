@@ -4,17 +4,22 @@
     height: 1rem;
     line-height: 1rem;
     overflow: hidden;
+    background:#DDD8CE;
+    z-index: 50;
     .tab_content{
       height: 100%;
+      min-width: 100%;
       white-space: nowrap;
-      background:#DDD8CE;
       .tab_item{
         display: inline-block;
         height: 100%;
-        padding: 0px 10px;/*px*/
+        padding: 0px 20px;/*px*/
         box-sizing: border-box;
         font-size: 14px;/*px*/
         color: gray;
+        &.active{
+            color: black;
+        }
       }
     }
   }
@@ -23,7 +28,7 @@
 <template>
     <div class="scrollTabWrap" ref="tabsWrapper">
         <div class="tab_content" ref="tab">
-            <div class="tab_item" v-for="(item,index) in TabList" :key="index" ref="tabItem">
+            <div class="tab_item" :class="{active:index==activeIndex}" v-for="(item,index) in TabList" :key="index" ref="tabItem" @click="changetab(index)">
                 {{item.name}}
             </div>
         </div>
@@ -35,17 +40,8 @@ import BScroll from 'better-scroll'
 export default {
     props:['TabList'],
     data(){
-        return {
-            // TabList:[
-            //     {id:0,name:'推荐'},
-            //     {id:1,name:'视频'},
-            //     {id:2,name:'男士穿搭'},
-            //     {id:3,name:'旅行'},
-            //     {id:4,name:'美食'},
-            //     {id:5,name:'健身'},
-            //     {id:6,name:'影视'},
-            //     {id:7,name:'读书'}
-            // ]
+        return{
+            activeIndex:0
         }
     },
     mounted() {
@@ -72,6 +68,10 @@ export default {
             }
         })
 
+        },
+        changetab(index){
+            this.activeIndex = index;
+            this.$emit('changeScrollTable',index)
         }
     }
 };

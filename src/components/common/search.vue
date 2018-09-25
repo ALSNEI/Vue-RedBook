@@ -38,7 +38,7 @@ export default {
 <style lang="scss" scoped>
 .search{
     width: 100%;
-    height: 1.2rem;
+    height: 100%;
     background: white;
     padding: .266667rem .533333rem;
     box-sizing: border-box;
